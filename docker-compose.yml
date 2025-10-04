@@ -2,39 +2,39 @@ version: '3.8'
 
 services:
   # Blue-Green менеджер
-  blue-green-manager:
+  switchcraft:
     build: .
     ports:
-      - "8080:8080"  # Веб-интерфейс и прокси
+      - "8080:8080"
     environment:
       - BLUE_PORT=5176
       - GREEN_PORT=5177
       - PROXY_PORT=8080
       - SERVICE_NAME=My Frontend App
-    volumes:
-      - ./config.json:/app/config.json
     networks:
       - app-network
 
-  # Blue среда
+  # Blue среда (заглушка для теста)
   app-5176:
-    image: your-frontend-app:blue
+    image: nginx:alpine
     ports:
       - "5176:80"
     networks:
       - app-network
-    environment:
-      - APP_COLOR=blue
+    volumes:
+      - ./blue-health.html:/usr/share/nginx/html/health
+      - ./blue-version.html:/usr/share/nginx/html/version
 
-  # Green среда
+  # Green среда (заглушка для теста)
   app-5177:
-    image: your-frontend-app:green  
+    image: nginx:alpine
     ports:
       - "5177:80"
     networks:
       - app-network
-    environment:
-      - APP_COLOR=green
+    volumes:
+      - ./green-health.html:/usr/share/nginx/html/health
+      - ./green-version.html:/usr/share/nginx/html/version
 
 networks:
   app-network:
