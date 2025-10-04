@@ -205,12 +205,6 @@ go build -o switchcraft main.go
 
 MIT License - смотрите файл [LICENSE](LICENSE) для деталей.
 
-## 🆘 Поддержка
 
-- [Issues](https://gitlab.com/your-project/switchcraft/-/issues)
-- [Documentation](https://gitlab.com/your-project/switchcraft/-/wikis/home)
-- [Examples](https://gitlab.com/your-project/switchcraft/-/tree/master/examples)
-
----
 
 **SwitchCraft** - сделайте ваши деплои безболезненными! ✨
