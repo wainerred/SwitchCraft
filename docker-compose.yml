@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Blue-Green менеджер
+  blue-green-manager:
+    build: .
+    ports:
+      - "8080:8080"  # Веб-интерфейс и прокси
+    environment:
+      - BLUE_PORT=5176
+      - GREEN_PORT=5177
+      - PROXY_PORT=8080
+      - SERVICE_NAME=My Frontend App
+    volumes:
+      - ./config.json:/app/config.json
+    networks:
+      - app-network
+
+  # Blue среда
+  app-5176:
+    image: your-frontend-app:blue
+    ports:
+      - "5176:80"
+    networks:
+      - app-network
+    environment:
+      - APP_COLOR=blue
+
+  # Green среда
+  app-5177:
+    image: your-frontend-app:green  
+    ports:
+      - "5177:80"
+    networks:
+      - app-network
+    environment:
+      - APP_COLOR=green
+
+networks:
+  app-network:
